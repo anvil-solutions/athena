@@ -42,6 +42,10 @@ export default {
           {{ item.title }}
         </button>
     </div>
+    <div class="card p-16">
+      <h3>Notes</h3>
+      <p>No notes available</p>
+    </div>
   </page-tab-bar>`,
   components: {
     PageTabBar
