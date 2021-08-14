@@ -47,6 +47,9 @@ export default {
     PageTabBar
   },
   methods: {
+    openDay(day) {
+      console.log(new Date(this.year, this.month, day))
+    },
     getDays() {
       let i, j
       const days = []
