@@ -1,0 +1,25 @@
+{
+  "name": "athena",
+  "version": "1.0.0",
+  "description": "A working title",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-vue": "^7.16.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Domi04151309/athena.git"
+  },
+  "author": "Domi04151309 & Nils Döhring",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Domi04151309/athena/issues"
+  },
+  "homepage": "https://github.com/Domi04151309/athena#readme"
+}

@@ -1,0 +1,68 @@
+---
+layout: null
+---
+{
+  "short_name": "Athena",
+  "name": "Athena",
+  "description": "A working title",
+  "icons": [
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-mdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-hdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-xhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-xxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/mipmap-xxxxhdpi/ic_launcher.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "{{ site.baseurl }}/pwa/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "{{ site.baseurl }}/#/overview",
+  "background_color": "#121212",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "{{ site.baseurl }}/",
+  "theme_color": "#1e1e1e",
+  "shortcuts": [
+    {
+      "name": "Overview",
+      "url": "{{ site.baseurl }}/#/overview",
+      "icons": [{ "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Calendar",
+      "url": "{{ site.baseurl }}/#/calendar",
+      "icons": [{ "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Account",
+      "url": "{{ site.baseurl }}/#/account",
+      "icons": [{ "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png", "sizes": "192x192" }]
+    }
+  ]
+}
