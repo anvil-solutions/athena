@@ -1,5 +1,7 @@
 import Page from '../components/page.js'
 
+//TODO: Add Content
+
 export default {
   name: 'help',
   template:

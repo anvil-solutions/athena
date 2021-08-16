@@ -1,5 +1,8 @@
 import PageTabBar from '../../components/page-tab-bar.js'
 
+//TODO: Calendar indicators
+//TODO: Display Notes
+
 export default {
   name: 'calendar',
   data() {

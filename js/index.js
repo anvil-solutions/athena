@@ -10,6 +10,11 @@ const Account = () => import('./pages/main/account.js')
 
 const Day = () => import('./pages/day.js')
 
+const Symptoms = () => import('./pages/symptoms.js')
+const Note = () => import('./pages/note.js')
+const Medication = () => import('./pages/medication.js')
+const MedicationDetails = () => import('./pages/medication-details.js')
+
 const AppSettings = () => import('./pages/app-settings.js')
 const ErrorLog = () => import('./pages/log.js')
 const BackupAndRestore = () => import('./pages/backup-and-restore.js')
@@ -32,6 +37,10 @@ const routes = [
   { path: '/overview', component: Overview },
   { path: '/calendar', component: Calendar },
   { path: '/day', component: Day },
+  { path: '/symptoms', component: Symptoms },
+  { path: '/note', component: Note },
+  { path: '/medication', component: Medication },
+  { path: '/medication/details', component: MedicationDetails },
   { path: '/account', component: Account },
   { path: '/account/app', component: AppSettings },
   { path: '/account/app/log', component: ErrorLog },
