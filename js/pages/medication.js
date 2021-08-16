@@ -10,10 +10,30 @@ export default {
   template:
   `<page title="Medication">
     <ul class="card link-list m-0">
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">medication</span>Lorem Ipsum</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">medication</span>Dolor Sit</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">medication</span>Amet Consectetur</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">medication</span>Adipiscing Elit</span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">medication</span>Lorem Ipsum</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">medication</span>Dolor Sit</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">medication</span>Amet Consectetur</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">medication</span>Adipiscing Elit</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
     </ul>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">add</div>
   </page>`,

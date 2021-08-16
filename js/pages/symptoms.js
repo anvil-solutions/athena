@@ -17,10 +17,30 @@ export default {
   `<page title="Symptoms">
     <input v-model="searchString" class="card mb-16" type="text" placeholder="Search" autocomplete="off">
     <ul class="card link-list m-0">
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">healing</span>Lorem Ipsum</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">healing</span>Dolor Sit</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">healing</span>Amet Consectetur</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">healing</span>Adipiscing Elit</span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">healing</span>Lorem Ipsum</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">healing</span>Dolor Sit</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">healing</span>Amet Consectetur</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onItemClicked()">
+        <div class="flex between">
+          <span><span class="material-icons-round">healing</span>Adipiscing Elit</span>
+          <span class="material-icons-round text">remove_circle_outline</span>
+        </div>
+      </span></li>
     </ul>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">add</div>
   </page>`,

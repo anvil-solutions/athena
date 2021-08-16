@@ -441,6 +441,11 @@ h2 > .c-icon {
 .material-icons-round.accent {
   color: var(--accent-color);
 }
+.material-icons-round.text {
+  --accent-color-gradient: var(--text-color-secondary);
+  color: var(--text-color-secondary);
+  margin: 0;
+}
 .material-icons-round.img {
   position: relative;
   margin-right: 16px;

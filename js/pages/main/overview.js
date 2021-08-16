@@ -7,6 +7,12 @@ import Modal from '../../components/modal.js'
 
 export default {
   name: 'overview',
+  data() {
+    return {
+      intercourse: false,
+      pregnancy: false
+    }
+  },
   template:
   `<page-tab-bar>
     <div class="text-center mb-32">
@@ -29,14 +35,30 @@ export default {
       <li><router-link to="/symptoms"><span class="material-icons-round">healing</span>Add Symptoms</router-link></li>
       <li><router-link to="/note"><span class="material-icons-round">sticky_note_2</span>Add Note</router-link></li>
       <li><router-link to="/medication"><span class="material-icons-round">medication</span>Medication</router-link></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">favorite</span>Intercourse</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">pregnant_woman</span>Pregnancy</span></li>
+      <li><span v-on:click="onToggleClicked('intercourse')">
+        <div class="flex between">
+          <span><span class="material-icons-round">favorite</span>Intercourse</span>
+          <span class="material-icons-round text">{{ boxState(intercourse) }}</span>
+        </div>
+      </span></li>
+      <li><span v-on:click="onToggleClicked('pregnancy')">
+        <div class="flex between">
+          <span><span class="material-icons-round">pregnant_woman</span>Pregnancy</span>
+          <span class="material-icons-round text">{{ boxState(pregnancy) }}</span>
+        </div>
+      </span></li>
     </ul>
   </page-tab-bar>`,
   components: {
     PageTabBar
   },
   methods: {
+    boxState(value) {
+      return value ? 'check_box' : 'check_box_outline_blank'
+    },
+    onToggleClicked(value) {
+      this[value] = !this[value]
+    },
     onItemClicked() {
       const ComponentClass = Vue.extend(Modal)
       const instance = new ComponentClass({
