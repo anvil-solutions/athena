@@ -8,6 +8,8 @@ const Overview = () => import('./pages/main/overview.js')
 const Calendar = () => import('./pages/main/calendar.js')
 const Account = () => import('./pages/main/account.js')
 
+const Day = () => import('./pages/day.js')
+
 const AppSettings = () => import('./pages/app-settings.js')
 const ErrorLog = () => import('./pages/log.js')
 const BackupAndRestore = () => import('./pages/backup-and-restore.js')
@@ -29,6 +31,7 @@ const routes = [
   { path: '*', component: Unknown },
   { path: '/overview', component: Overview },
   { path: '/calendar', component: Calendar },
+  { path: '/day', component: Day },
   { path: '/account', component: Account },
   { path: '/account/app', component: AppSettings },
   { path: '/account/app/log', component: ErrorLog },
