@@ -4,7 +4,7 @@ export default {
     return {
       tabs: [
         {
-          icon: 'insights',
+          icon: 'home',
           title: 'Overview',
           url: '/overview'
         },
@@ -12,6 +12,11 @@ export default {
           icon: 'event',
           title: 'Calendar',
           url: '/calendar'
+        },
+        {
+          icon: 'leaderboard',
+          title: 'Calendar',
+          url: '/analytics'
         },
         {
           icon: 'account_circle',

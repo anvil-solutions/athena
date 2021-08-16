@@ -6,6 +6,7 @@ const Unknown = () => import('./pages/unknown.js')
 
 const Overview = () => import('./pages/main/overview.js')
 const Calendar = () => import('./pages/main/calendar.js')
+const Analytics = () => import('./pages/main/analytics.js')
 const Account = () => import('./pages/main/account.js')
 
 const Day = () => import('./pages/day.js')
@@ -36,6 +37,7 @@ const routes = [
   { path: '*', component: Unknown },
   { path: '/overview', component: Overview },
   { path: '/calendar', component: Calendar },
+  { path: '/analytics', component: Analytics },
   { path: '/day', component: Day },
   { path: '/symptoms', component: Symptoms },
   { path: '/note', component: Note },

@@ -22,7 +22,7 @@ export default {
     </div>
     <div class="card p-16 mb-16">
       <h3>Flow</h3>
-      <p>No notes available</p>
+      <p>Not available</p>
     </div>
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Symptoms</h3>
