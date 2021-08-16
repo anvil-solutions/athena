@@ -55,8 +55,7 @@ export default {
   },
   methods: {
     openDay(day) {
-      console.log(new Date(this.year, this.month, day))
-      this.$router.push('/day')
+      this.$router.push('/day?date=' + this.year + String(this.month + 1).padStart(2, '0') + String(day).padStart(2, '0'))
     },
     getDays() {
       let i, j

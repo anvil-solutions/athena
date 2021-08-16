@@ -21,9 +21,9 @@ export default {
   template:
   `<page title="Day">
     <div class="card flex center between p-16 mb-16">
-      <span class="material-icons-round">chevron_left</span>
+      <router-link :to="'?date=' + Identifiers.prevDateId(helper.dateId)" class="material-icons-round text">chevron_left</router-link>
       <h2 class="h3 m-0">{{ Identifiers.dateIdToDate(helper.dateId).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) }}</h2>
-      <span class="material-icons-round">chevron_right</span>
+      <router-link :to="'?date=' + Identifiers.nextDateId(helper.dateId)" class="material-icons-round text">chevron_right</router-link>
     </div>
     <div class="card p-16 mb-16">
       <h3>Flow</h3>
@@ -38,7 +38,7 @@ export default {
             <span v-on:click="removeSymptom(item)" class="material-icons-round text">remove_circle_outline</span>
           </div>
         </span></li>
-        <li><router-link to="/symptoms"><span class="material-icons-round">add</span>Add Symptom</router-link></li>
+        <li><router-link :to="'/symptoms?date=' + helper.dateId"><span class="material-icons-round">add</span>Add Symptom</router-link></li>
       </ul>
     </div>
     <div class="card mb-16">

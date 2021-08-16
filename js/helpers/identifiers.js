@@ -10,5 +10,11 @@ export default {
     return new Date(
       dateId.substring(0, 4), dateId.substring(4, 6) - 1, dateId.substring(6, 8)
     )
+  },
+  prevDateId(dateId) {
+    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() - 86400000))
+  },
+  nextDateId(dateId) {
+    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() + 86400000))
   }
 }
