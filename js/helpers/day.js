@@ -5,15 +5,29 @@ function DefaultObject() {
   return {
     symptoms: [],
     notes: [],
+    medication: [],
     intercourse: false,
     pregnancy: false
   }
 }
 
+function getLatestEntry(limit) {
+  const keys = Object.keys(localStorage).filter(x => x.startsWith('a2') && x < limit).sort((a, b) => a.localeCompare(b) * (-1))
+  return keys.length == 0 ? DefaultObject() : JsonHelper.get(keys[0])
+}
+
+function prepareDefault(dateId) {
+  const latestEntry = getLatestEntry('a' + dateId)
+  const result = DefaultObject()
+  result.medication = latestEntry.medication
+  result.pregnancy = latestEntry.pregnancy
+  return result
+}
+
 export default class DayHelper {
   constructor(dateId = Identifiers.getDateId()) {
     this.dateId = dateId
-    this.data = JsonHelper.get('a' + dateId, DefaultObject)
+    this.data = JsonHelper.get('a' + dateId, prepareDefault)
   }
   saveData() {
     JsonHelper.set('a' + this.dateId, this.data)
