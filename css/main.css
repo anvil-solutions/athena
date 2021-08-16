@@ -534,6 +534,13 @@ h2 > .c-icon {
   text-align: center;
   content: 'No results.'
 }
+.medications:empty:after {
+  display: block;
+  color: var(--text-color-secondary);
+  padding: 16px;
+  text-align: center;
+  content: 'Add medications by pressing the add button on the bottom right.'
+}
 .disabled {
   opacity: .38;
 }

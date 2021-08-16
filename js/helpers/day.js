@@ -5,7 +5,7 @@ function DefaultObject() {
   return {
     symptoms: [],
     notes: [],
-    medication: [],
+    medications: [],
     intercourse: false,
     pregnancy: false
   }
@@ -19,7 +19,7 @@ function getLatestEntry(limit) {
 function prepareDefault(dateId) {
   const latestEntry = getLatestEntry('a' + dateId)
   const result = DefaultObject()
-  result.medication = latestEntry.medication
+  result.medications = latestEntry.medications
   result.pregnancy = latestEntry.pregnancy
   return result
 }
@@ -43,6 +43,10 @@ export default class DayHelper {
   }
   removeSymptom(title) {
     this.data.symptoms = this.data.symptoms.filter(i => i != title)
+    this.saveData()
+  }
+  removeMedication(index) {
+    this.data.medications.splice(index, 1)
     this.saveData()
   }
 }

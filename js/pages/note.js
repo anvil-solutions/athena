@@ -28,12 +28,12 @@ export default {
       this.$router.push(this.$route.query.date ? '/day?date=' + this.$route.query.date : '/day')
     }
   },
-  mounted() {
-    setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)
-  },
   created() {
     this.helper = new DayHelper(this.$route.query.date)
     this.index = this.$route.query.i || this.helper.data.notes.length
     this.note = this.helper.data.notes[this.index]
+  },
+  mounted() {
+    setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)
   }
 }

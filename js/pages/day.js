@@ -54,15 +54,15 @@ export default {
       </ul>
     </div>
     <div class="card mb-16">
-      <h3 class="p-16 pb-0 m-0">Medication</h3>
+      <h3 class="p-16 pb-0 m-0">Medications</h3>
       <ul class="link-list m-0">
-        <li><span v-on:click="onItemClicked()">
+        <li v-for="(item, i) in helper.data.medications" :key="'m' + i"><span v-on:click="$router.push('/medications/details?date=' + helper.dateId + '&i=' + i)">
           <div class="flex between">
-            <span><span class="material-icons-round">arrow_right</span>Lorem Ipsum</span>
-            <span class="material-icons-round text">remove_circle_outline</span>
+            <span><span class="material-icons-round">arrow_right</span>{{ item.title }}</span>
+            <span v-on:click.stop="deleteMedication(i)" class="material-icons-round text">remove_circle_outline</span>
           </div>
         </span></li>
-        <li><router-link to="/medication/details"><span class="material-icons-round">add</span>Add Medication</router-link></li>
+        <li><router-link to="/medications/details"><span class="material-icons-round">add</span>Add Medication</router-link></li>
       </ul>
     </div>
     <ul class="card link-list m-0">
@@ -122,13 +122,16 @@ export default {
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
     },
-    onItemClicked() {
+    deleteMedication(index) {
       const ComponentClass = Vue.extend(Modal)
       const instance = new ComponentClass({
         propsData: {
-          title: 'Not Yet Implemented',
-          message: 'This feature is not yet implemented.',
-          negativeButton: false
+          title: 'Delete Medication',
+          message: 'Are you sure you want to delete this medication? This cannot be undone.',
+          positiveText: 'Delete',
+          positiveFunction: () => {
+            this.helper.removeMedication(index)
+          }
         }
       })
       instance.$mount()

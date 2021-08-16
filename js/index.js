@@ -13,7 +13,7 @@ const Day = () => import('./pages/day.js')
 
 const Symptoms = () => import('./pages/symptoms.js')
 const Note = () => import('./pages/note.js')
-const Medication = () => import('./pages/medication.js')
+const Medications = () => import('./pages/medications.js')
 const MedicationDetails = () => import('./pages/medication-details.js')
 
 const AppSettings = () => import('./pages/app-settings.js')
@@ -41,8 +41,8 @@ const routes = [
   { path: '/day', component: Day },
   { path: '/symptoms', component: Symptoms },
   { path: '/note', component: Note },
-  { path: '/medication', component: Medication },
-  { path: '/medication/details', component: MedicationDetails },
+  { path: '/medications', component: Medications },
+  { path: '/medications/details', component: MedicationDetails },
   { path: '/account', component: Account },
   { path: '/account/app', component: AppSettings },
   { path: '/account/app/log', component: ErrorLog },
