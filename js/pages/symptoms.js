@@ -4,41 +4,29 @@ import Page from '../components/page.js'
 import Modal from '../components/modal.js'
 import ModalInput from '../components/modal-input.js'
 
-//TODO: Add, edit, delete symptoms
+import SymptomsHelper from '../helpers/symptoms.js'
+
+//TODO: Select symptoms
 
 export default {
   name: 'symptoms',
   data() {
     return {
-      searchString: ''
+      searchString: '',
+      symptoms: []
     }
+  },
+  watch: {
+    searchString() { this.refreshList() }
   },
   template:
   `<page title="Symptoms">
     <input v-model="searchString" class="card mb-16" type="text" placeholder="Search" autocomplete="off">
-    <ul class="card link-list m-0">
-      <li><span v-on:click="onItemClicked()">
+    <ul class="card link-list mt-0 mb-48 search">
+      <li v-for="(item, i) of symptoms" :key="i"><span v-on:click="onItemClicked()">
         <div class="flex between">
-          <span><span class="material-icons-round">healing</span>Lorem Ipsum</span>
-          <span class="material-icons-round text">remove_circle_outline</span>
-        </div>
-      </span></li>
-      <li><span v-on:click="onItemClicked()">
-        <div class="flex between">
-          <span><span class="material-icons-round">healing</span>Dolor Sit</span>
-          <span class="material-icons-round text">remove_circle_outline</span>
-        </div>
-      </span></li>
-      <li><span v-on:click="onItemClicked()">
-        <div class="flex between">
-          <span><span class="material-icons-round">healing</span>Amet Consectetur</span>
-          <span class="material-icons-round text">remove_circle_outline</span>
-        </div>
-      </span></li>
-      <li><span v-on:click="onItemClicked()">
-        <div class="flex between">
-          <span><span class="material-icons-round">healing</span>Adipiscing Elit</span>
-          <span class="material-icons-round text">remove_circle_outline</span>
+          <span><span class="material-icons-round">healing</span>{{ item }}</span>
+          <span v-on:click.stop="onDeleteClicked(item)" class="material-icons-round text">remove_circle_outline</span>
         </div>
       </span></li>
     </ul>
@@ -48,6 +36,11 @@ export default {
     Page
   },
   methods: {
+    refreshList() {
+      this.symptoms = SymptomsHelper.get()
+        .filter(x => x.toUpperCase().includes(this.searchString.toUpperCase()))
+        .sort((a, b) => a.localeCompare(b))
+    },
     onItemClicked() {
       const ComponentClass = Vue.extend(Modal)
       const instance = new ComponentClass({
@@ -55,6 +48,22 @@ export default {
           title: 'Not Yet Implemented',
           message: 'This feature is not yet implemented.',
           negativeButton: false
+        }
+      })
+      instance.$mount()
+      this.$root.$el.appendChild(instance.$el)
+    },
+    onDeleteClicked(title) {
+      const ComponentClass = Vue.extend(Modal)
+      const instance = new ComponentClass({
+        propsData: {
+          title: 'Delete Item',
+          message: 'Are you sure you want to delete this item? This cannot be undone.',
+          positiveText: 'Delete',
+          positiveFunction: () => {
+            SymptomsHelper.remove(title)
+            this.refreshList()
+          }
         }
       })
       instance.$mount()
@@ -68,13 +77,17 @@ export default {
           inputType: 'text',
           initialValue: '',
           positiveFunction: () => {
-            console.log(instance.$refs.input.value)
+            SymptomsHelper.add(instance.$refs.input.value)
+            this.refreshList()
           }
         }
       })
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
     }
+  },
+  created() {
+    this.refreshList()
   },
   mounted() {
     setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)

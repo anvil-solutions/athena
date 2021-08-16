@@ -9,7 +9,7 @@ export default {
   name: 'medication',
   template:
   `<page title="Medication">
-    <ul class="card link-list m-0">
+    <ul class="card link-list mt-0 mb-48">
       <li><span v-on:click="onItemClicked()">
         <div class="flex between">
           <span><span class="material-icons-round">medication</span>Lorem Ipsum</span>
