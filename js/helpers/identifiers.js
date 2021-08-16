@@ -12,9 +12,9 @@ export default {
     )
   },
   prevDateId(dateId) {
-    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() - 86400000))
+    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() - 9e7))
   },
   nextDateId(dateId) {
-    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() + 86400000))
+    return this.getDateId(new Date(this.dateIdToDate(dateId).getTime() + 9e7))
   }
 }

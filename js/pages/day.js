@@ -27,7 +27,16 @@ export default {
     </div>
     <div class="card p-16 mb-16">
       <h3>Flow</h3>
-      <p>Not available</p>
+      <div class="flex between">
+        <span v-on:click="setFlow(0)" class="material-icons-round accent">highlight_off</span>
+        <span
+          v-for="i in 5"
+          :key="'f' + i"
+          :class="'material-icons-round ' + (i < helper.data.flow + 1 ? 'accent' : 'text')"
+          v-on:click="setFlow(i)">
+          water_drop
+        </span>
+      </div>
     </div>
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Symptoms</h3>
@@ -84,11 +93,8 @@ export default {
     Page
   },
   methods: {
-    boxState(value) {
-      return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
-    },
-    onToggleClicked(value) {
-      this.helper.data[value] = !this.helper.data[value]
+    setFlow(value) {
+      this.helper.data.flow = value
       this.helper.saveData()
     },
     removeSymptom(title) {
@@ -136,6 +142,13 @@ export default {
       })
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
+    },
+    boxState(value) {
+      return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
+    },
+    onToggleClicked(value) {
+      this.helper.data[value] = !this.helper.data[value]
+      this.helper.saveData()
     }
   },
   created() {

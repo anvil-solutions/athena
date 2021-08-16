@@ -3,6 +3,7 @@ import JsonHelper from './json.js'
 
 function DefaultObject() {
   return {
+    flow: 0,
     symptoms: [],
     notes: [],
     medications: [],
