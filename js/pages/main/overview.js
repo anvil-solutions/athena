@@ -3,14 +3,15 @@
 import PageTabBar from '../../components/page-tab-bar.js'
 import Modal from '../../components/modal.js'
 
+import DayHelper from '../../helpers/day.js'
+
 //TODO: Working Links
 
 export default {
   name: 'overview',
   data() {
     return {
-      intercourse: false,
-      pregnancy: false
+      helper: {}
     }
   },
   template:
@@ -38,13 +39,13 @@ export default {
       <li><span v-on:click="onToggleClicked('intercourse')">
         <div class="flex between">
           <span><span class="material-icons-round">favorite</span>Intercourse</span>
-          <span class="material-icons-round text">{{ boxState(intercourse) }}</span>
+          <span class="material-icons-round text">{{ boxState('intercourse') }}</span>
         </div>
       </span></li>
       <li><span v-on:click="onToggleClicked('pregnancy')">
         <div class="flex between">
           <span><span class="material-icons-round">pregnant_woman</span>Pregnancy</span>
-          <span class="material-icons-round text">{{ boxState(pregnancy) }}</span>
+          <span class="material-icons-round text">{{ boxState('pregnancy') }}</span>
         </div>
       </span></li>
     </ul>
@@ -54,10 +55,11 @@ export default {
   },
   methods: {
     boxState(value) {
-      return value ? 'check_box' : 'check_box_outline_blank'
+      return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
     },
     onToggleClicked(value) {
-      this[value] = !this[value]
+      this.helper.data[value] = !this.helper.data[value]
+      this.helper.saveData()
     },
     onItemClicked() {
       const ComponentClass = Vue.extend(Modal)
@@ -71,5 +73,8 @@ export default {
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
     }
+  },
+  created() {
+    this.helper = new DayHelper()
   }
 }
