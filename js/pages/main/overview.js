@@ -31,8 +31,19 @@ export default {
       </div>
     </div>
     <ul class="link-list card">
+      <li>
+        <div class="flex between p-16">
+          <span v-on:click="setFlow(0)" class="material-icons-round accent">highlight_off</span>
+          <span
+            v-for="i in 5"
+            :key="'f' + i"
+            :class="'material-icons-round ' + (i < helper.data.flow + 1 ? 'accent' : 'text')"
+            v-on:click="setFlow(i)">
+            water_drop
+          </span>
+        </div>
+      </li>
       <li><span v-on:click="onItemClicked()"><span class="material-icons-round">water_drop</span>Start Period</span></li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">water</span>Enter Flow</span></li>
       <li><router-link to="/symptoms"><span class="material-icons-round">healing</span>Add Symptoms</router-link></li>
       <li><router-link to="/note"><span class="material-icons-round">sticky_note_2</span>Add Note</router-link></li>
       <li><router-link to="/medications"><span class="material-icons-round">medication</span>Medications</router-link></li>
