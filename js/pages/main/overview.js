@@ -65,6 +65,10 @@ export default {
     PageTabBar
   },
   methods: {
+    setFlow(value) {
+      this.helper.data.flow = value
+      this.helper.saveData()
+    },
     boxState(value) {
       return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
     },
