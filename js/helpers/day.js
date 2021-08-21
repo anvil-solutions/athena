@@ -20,7 +20,6 @@ function getLatestEntry(limit) {
 function prepareDefault(dateId) {
   const latestEntry = getLatestEntry('a' + dateId)
   const result = DefaultObject()
-  result.medications = latestEntry.medications
   result.pregnancy = latestEntry.pregnancy
   return result
 }
@@ -45,6 +44,15 @@ export default class DayHelper {
   removeSymptom(title) {
     this.data.symptoms = this.data.symptoms.filter(i => i != title)
     this.saveData()
+  }
+  addMedication(item) {
+    if (this.data.medications.some(x => x.title == item.title)) {
+      return false
+    } else {
+      this.data.medications.push(item)
+      this.saveData()
+      return true
+    }
   }
   removeMedication(index) {
     this.data.medications.splice(index, 1)

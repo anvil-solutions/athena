@@ -46,7 +46,7 @@ export default {
       <li><span v-on:click="onItemClicked()"><span class="material-icons-round">water_drop</span>Start Period</span></li>
       <li><router-link to="/symptoms"><span class="material-icons-round">healing</span>Add Symptoms</router-link></li>
       <li><router-link to="/note"><span class="material-icons-round">sticky_note_2</span>Add Note</router-link></li>
-      <li><router-link to="/medications"><span class="material-icons-round">medication</span>Medications</router-link></li>
+      <li><router-link to="/medications"><span class="material-icons-round">medication</span>Add Medication</router-link></li>
       <li><span v-on:click="onToggleClicked('intercourse')">
         <div class="flex between">
           <span><span class="material-icons-round">favorite</span>Intercourse</span>

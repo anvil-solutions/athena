@@ -3,22 +3,28 @@
 import Page from '../components/page.js'
 import Modal from '../components/modal.js'
 
+import MedicationsHelper from '../helpers/medications.js'
 import DayHelper from '../helpers/day.js'
 
 export default {
-  name: 'medications',
+  name: 'Medications',
   data() {
     return {
-      helper: {}
+      searchString: '',
+      medications: []
     }
+  },
+  watch: {
+    searchString() { this.refreshList() }
   },
   template:
   `<page title="Medications">
+    <input v-model="searchString" class="card mb-16" type="text" placeholder="Search" autocomplete="off">
     <ul class="card link-list mt-0 mb-48 medications">
-      <li v-for="(item, i) in helper.data.medications" :key="i"><span v-on:click="$router.push('/medications/details?date=' + helper.dateId + '&i=' + i)">
+      <li v-for="(item, i) of medications" :key="i"><span v-on:click="onItemClicked(item)">
         <div class="flex between">
           <span><span class="material-icons-round">medication</span>{{ item.title }}</span>
-          <span v-on:click.stop="deleteMedication(i)" class="material-icons-round text">remove_circle_outline</span>
+          <span v-on:click.stop="onEditClicked(item.title)" class="material-icons-round text">edit</span>
         </div>
       </span></li>
     </ul>
@@ -28,27 +34,44 @@ export default {
     Page
   },
   methods: {
-    deleteMedication(index) {
+    refreshList() {
+      this.medications = MedicationsHelper.get()
+        .filter(x => x.title.toUpperCase().includes(this.searchString.toUpperCase()))
+        .sort((a, b) => a.title.localeCompare(b.title))
+    },
+    onItemClicked(item) {
       const ComponentClass = Vue.extend(Modal)
-      const instance = new ComponentClass({
-        propsData: {
-          title: 'Delete Medication',
-          message: 'Are you sure you want to delete this medication? This cannot be undone.',
-          positiveText: 'Delete',
-          positiveFunction: () => {
-            this.helper.removeMedication(index)
+      let instance = null
+      const helper = new DayHelper(this.$route.query.date)
+      if (helper.addMedication(item)) {
+        instance = new ComponentClass({
+          propsData: {
+            title: 'Added Medication',
+            message: 'Added ' + item.title + ' as medication.',
+            negativeButton: false
           }
-        }
-      })
+        })
+      } else {
+        instance = new ComponentClass({
+          propsData: {
+            title: 'Already Added',
+            message: item.title + ' is already on your list.',
+            negativeButton: false
+          }
+        })
+      }
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
+    },
+    onEditClicked(title) {
+      this.$router.push('/medications/details?i=' + title)
     },
     onFabClicked() {
       this.$router.push('/medications/details')
     }
   },
   created() {
-    this.helper = new DayHelper(this.$route.query.date)
+    this.refreshList()
   },
   mounted() {
     setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)
