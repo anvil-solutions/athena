@@ -448,6 +448,9 @@ h2 > .c-icon {
   text-decoration: none;
   margin: 0;
 }
+.material-icons-round.small {
+  font-size: 16px;
+}
 .material-icons-round.img {
   position: relative;
   margin-right: 16px;
@@ -552,6 +555,11 @@ h2 > .c-icon {
   background: none;
   box-shadow: none;
   color: var(--text-color-secondary);
+}
+#calendar .no-stretch > button {
+  min-height: 64px;
+  align-items: start;
+  display: grid;
 }
 #calendar button:hover {
   background: var(--hover-color);

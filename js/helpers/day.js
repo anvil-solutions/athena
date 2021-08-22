@@ -58,4 +58,14 @@ export default class DayHelper {
     this.data.medications.splice(index, 1)
     this.saveData()
   }
+  static getIndicators(dateId) {
+    const data = JsonHelper.get('a' + dateId, prepareDefault)
+    const icons = []
+    if (data.flow > 0) icons.push('water_drop')
+    if (data.symptoms.length > 0) icons.push('healing')
+    if (data.notes.length > 0) icons.push('sticky_note_2')
+    if (data.medications.length > 0) icons.push('medication')
+    if (data.intercourse) icons.push('favorite')
+    return icons
+  }
 }

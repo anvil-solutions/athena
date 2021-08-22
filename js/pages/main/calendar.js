@@ -1,7 +1,6 @@
 import PageTabBar from '../../components/page-tab-bar.js'
 
-//TODO: Calendar indicators
-//TODO: Display Notes
+import DayHelper from '../../helpers/day.js'
 
 export default {
   name: 'calendar',
@@ -34,7 +33,7 @@ export default {
         </div>
       </h3>
     </div>
-    <div class="card mb-16 p-16 text-center grid-7">
+    <div class="card p-16 text-center grid-7 no-stretch">
       <div v-for="(item, i) in weekDays" :key="i + 200">{{ item }}</div>
       <button
         v-for="(item, i) in days"
@@ -42,20 +41,27 @@ export default {
         :class="{ today: item.highlighted }"
         type="button"
         v-on:click="if (item.clickable) openDay(item.day)">
-          {{ item.title }}
+          <div>{{ item.title }}</div>
+          <div>
+            <span
+              v-for="(icon, j) in item.icons"
+              :key="'d' + i + 'i' + j"
+              class="material-icons-round small">
+              {{ icon }}
+            </span>
+          </div>
         </button>
-    </div>
-    <div class="card p-16">
-      <h3>Notes</h3>
-      <p>No notes available</p>
     </div>
   </page-tab-bar>`,
   components: {
     PageTabBar
   },
   methods: {
+    getDateId(day) {
+      return this.year + String(this.month + 1).padStart(2, '0') + String(day).padStart(2, '0')
+    },
     openDay(day) {
-      this.$router.push('/day?date=' + this.year + String(this.month + 1).padStart(2, '0') + String(day).padStart(2, '0'))
+      this.$router.push('/day?date=' + this.getDateId(day))
     },
     getDays() {
       let i, j
@@ -74,6 +80,7 @@ export default {
             if (dayCount > lastDay.getDate()) break
             days.push({
               title: dayCount,
+              icons: DayHelper.getIndicators(this.getDateId(dayCount)),
               clickable: true,
               day: dayCount,
               highlighted: dayCount == today.getDate()
@@ -84,6 +91,7 @@ export default {
           } else {
             days.push({
               title: '',
+              icons: [],
               clickable: false
             })
             offset--
