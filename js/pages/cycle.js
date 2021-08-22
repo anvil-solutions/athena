@@ -9,8 +9,7 @@ export default {
     return {
       symptoms: ['a', 'b'],
       notes: ['a', 'b'],
-      cycle: {},
-      dateString: [undefined, { month: 'short', day: 'numeric' }]
+      cycle: {}
     }
   },
   computed: {
@@ -20,7 +19,7 @@ export default {
   `<page title="Cycle">
     <div class="card p-16 red mb-16">
       <p class="m-0">
-        <small>{{ (new Date(cycle.start)).toLocaleDateString(...dateString) }} - {{ (new Date(cycle.end)).toLocaleDateString(...dateString) }}</small>
+        <small>{{ (new Date(cycle.start)).toLocaleDateString(...Common.simpleDateParams) }} - {{ (new Date(cycle.end)).toLocaleDateString(...Common.simpleDateParams) }}</small>
       </p>
       <progress :value="cycle.periodEnd - cycle.start" :max="cycle.end - cycle.start"></progress>
     </div>

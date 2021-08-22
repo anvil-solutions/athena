@@ -2,6 +2,7 @@ import Common from './common.js'
 import JsonHelper from './json.js'
 
 const KEY = 'periods'
+const DAY_IN_MS = 86400000
 
 export default class CycleHelper {
   constructor() {
@@ -39,9 +40,12 @@ export default class CycleHelper {
   }
   getStats() {
     const cycles = this.getCycles().slice(0, -1)
-    return {
-      cycle: Math.round(cycles.reduce((acc, cur) => acc + cur.end - cur.start, 0) / cycles.length / 86400000),
-      period: Math.round(cycles.reduce((acc, cur) => acc + cur.periodEnd - cur.start, 0) / cycles.length / 86400000)
+    const object = {
+      cycle: Math.round(cycles.reduce((acc, cur) => acc + cur.end - cur.start, 0) / cycles.length / DAY_IN_MS),
+      period: Math.round(cycles.reduce((acc, cur) => acc + cur.periodEnd - cur.start, 0) / cycles.length / DAY_IN_MS)
     }
+    object.nextPeriod = this.periods.slice(-1)[0][0] + object.cycle * DAY_IN_MS
+    object.nextPeriodDays = Common.getDaysDifference((new Date()).getTime(), object.nextPeriod)
+    return object
   }
 }

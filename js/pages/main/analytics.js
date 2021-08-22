@@ -9,8 +9,7 @@ export default {
     return {
       helper: new CycleHelper,
       cycles: [],
-      stats: {},
-      dateString: [undefined, { month: 'short', day: 'numeric' }]
+      stats: {}
     }
   },
   computed: {
@@ -29,7 +28,7 @@ export default {
     <router-link v-for="(item, i) in cycles" :key="i" :to="'/analytics/cycle?i=' + (cycles.length - i - 1)" class="card p-16 red mb-16">
       <p class="m-0">
         {{ Common.getDayString(item.days) }}
-        <small>{{ (new Date(item.start)).toLocaleDateString(...dateString) }} - {{ (new Date(item.end)).toLocaleDateString(...dateString) }}</small>
+        <small>{{ (new Date(item.start)).toLocaleDateString(...Common.simpleDateParams) }} - {{ (new Date(item.end)).toLocaleDateString(...Common.simpleDateParams) }}</small>
       </p>
       <progress :value="item.periodEnd - item.start" :max="item.end - item.start"></progress>
     </router-link>

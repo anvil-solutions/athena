@@ -3,8 +3,11 @@
 import PageTabBar from '../../components/page-tab-bar.js'
 import Modal from '../../components/modal.js'
 
+import Common from '../../helpers/common.js'
 import DayHelper from '../../helpers/day.js'
 import CycleHelper from '../../helpers/cycle.js'
+
+//TODO: Fertility
 
 export default {
   name: 'overview',
@@ -12,21 +15,25 @@ export default {
     return {
       startStopString: '',
       dayHelper: {},
-      cycleHelper: {}
+      cycleHelper: {},
+      stats: {}
     }
+  },
+  computed: {
+    Common: () => Common
   },
   template:
   `<page-tab-bar>
     <div class="text-center mb-32">
-      <h2 class="m-0">0 Days</h2>
+      <h2 class="m-0">{{ Common.getDayString(stats.nextPeriodDays) }}</h2>
       <p class="mt-0 mb-16">Until Next Period</p>
       <div class="flex space">
         <div>
-          <h3 class="m-0">Jan 1st</h3>
+          <h3 class="m-0">{{ (new Date(stats.nextPeriod)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
           <p class="m-0">Next Period</p>
         </div>
         <div>
-          <h3 class="m-0">Jan 1st</h3>
+          <h3 class="m-0">Unknown</h3>
           <p class="m-0">Next Fertile</p>
         </div>
       </div>
@@ -109,5 +116,6 @@ export default {
     this.dayHelper = new DayHelper()
     this.cycleHelper = new CycleHelper()
     this.startStopString = this.cycleHelper.isStarted() ? 'End' : 'Start'
+    this.stats = this.cycleHelper.getStats()
   }
 }

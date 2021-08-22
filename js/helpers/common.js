@@ -4,5 +4,6 @@ export default {
   },
   getDayString(quantity) {
     return quantity + (quantity == 1 ? ' day' : ' days')
-  }
+  },
+  simpleDateParams: [undefined, { month: 'short', day: 'numeric' }]
 }

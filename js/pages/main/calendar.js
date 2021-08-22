@@ -2,6 +2,9 @@ import PageTabBar from '../../components/page-tab-bar.js'
 
 import DayHelper from '../../helpers/day.js'
 
+//TODO: Fix alignment
+//TODO: period and fertility painting
+
 export default {
   name: 'calendar',
   data() {
