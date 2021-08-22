@@ -4,14 +4,15 @@ import PageTabBar from '../../components/page-tab-bar.js'
 import Modal from '../../components/modal.js'
 
 import DayHelper from '../../helpers/day.js'
-
-//TODO: Working Links
+import CycleHelper from '../../helpers/cycle.js'
 
 export default {
   name: 'overview',
   data() {
     return {
-      helper: {}
+      startStopString: '',
+      dayHelper: {},
+      cycleHelper: {}
     }
   },
   template:
@@ -37,13 +38,15 @@ export default {
           <span
             v-for="i in 5"
             :key="'f' + i"
-            :class="'material-icons-round ' + (i < helper.data.flow + 1 ? 'accent' : 'text')"
+            :class="'material-icons-round ' + (i < dayHelper.data.flow + 1 ? 'accent' : 'text')"
             v-on:click="setFlow(i)">
             water_drop
           </span>
         </div>
       </li>
-      <li><span v-on:click="onItemClicked()"><span class="material-icons-round">water_drop</span>Start Period</span></li>
+      <li><span v-on:click="onPeriodClicked()">
+        <span class="material-icons-round">water_drop</span>{{ startStopString }} Period
+      </span></li>
       <li><router-link to="/symptoms"><span class="material-icons-round">healing</span>Add Symptoms</router-link></li>
       <li><router-link to="/note"><span class="material-icons-round">sticky_note_2</span>Add Note</router-link></li>
       <li><router-link to="/medications"><span class="material-icons-round">medication</span>Add Medication</router-link></li>
@@ -66,30 +69,45 @@ export default {
   },
   methods: {
     setFlow(value) {
-      this.helper.data.flow = value
-      this.helper.saveData()
+      this.dayHelper.data.flow = value
+      this.dayHelper.saveData()
     },
     boxState(value) {
-      return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
+      return this.dayHelper.data[value] ? 'check_box' : 'check_box_outline_blank'
     },
     onToggleClicked(value) {
-      this.helper.data[value] = !this.helper.data[value]
-      this.helper.saveData()
+      this.dayHelper.data[value] = !this.dayHelper.data[value]
+      this.dayHelper.saveData()
     },
-    onItemClicked() {
+    onPeriodClicked() {
+      this.cycleHelper.startStop()
+      this.startStopString = this.cycleHelper.isStarted() ? 'End' : 'Start'
       const ComponentClass = Vue.extend(Modal)
-      const instance = new ComponentClass({
-        propsData: {
-          title: 'Not Yet Implemented',
-          message: 'This feature is not yet implemented.',
-          negativeButton: false
-        }
-      })
+      let instance = null
+      if (this.cycleHelper.isStarted()) {
+        instance = new ComponentClass({
+          propsData: {
+            title: 'Started Period',
+            message: 'You started your period.',
+            negativeButton: false
+          }
+        })
+      } else {
+        instance = new ComponentClass({
+          propsData: {
+            title: 'Ended Period',
+            message: 'You ended your period.',
+            negativeButton: false
+          }
+        })
+      }
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
     }
   },
   created() {
-    this.helper = new DayHelper()
+    this.dayHelper = new DayHelper()
+    this.cycleHelper = new CycleHelper()
+    this.startStopString = this.cycleHelper.isStarted() ? 'End' : 'Start'
   }
 }

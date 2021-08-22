@@ -1,27 +1,30 @@
 import Page from '../components/page.js'
 
+import CycleHelper from '../helpers/cycle.js'
+
 export default {
   name: 'cycle-details',
   data() {
     return {
-      helper: {
-        data: {
-          symptoms: ['a', 'b'],
-          notes: ['a', 'b']
-        }
-      }
+      symptoms: ['a', 'b'],
+      notes: ['a', 'b'],
+      cycle: {},
+      dateString: [undefined, { month: 'short', day: 'numeric' }]
     }
   },
   template:
   `<page title="Cycle">
     <div class="card p-16 red mb-16">
-      <p class="m-0">0 days <small>Jan 1st - Jan 1st</small></p>
-      <progress value="6" max="31"></progress>
+      <p class="m-0">
+        {{ cycle.days }} days
+        <small>{{ (new Date(cycle.start)).toLocaleDateString(...dateString) }} - {{ (new Date(cycle.end)).toLocaleDateString(...dateString) }}</small>
+      </p>
+      <progress :value="cycle.periodEnd - cycle.start" :max="cycle.end - cycle.start"></progress>
     </div>
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Symptoms</h3>
       <ul class="link-list m-0">
-        <li v-for="(item, i) in helper.data.symptoms" :key="'s' + i">
+        <li v-for="(item, i) in symptoms" :key="'s' + i">
           <span><span class="material-icons-round">healing</span>{{ item }}</span>
         </li>
       </ul>
@@ -29,7 +32,7 @@ export default {
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Notes</h3>
       <ul class="link-list m-0">
-        <li v-for="(item, i) in helper.data.notes" :key="'n' + i">
+        <li v-for="(item, i) in notes" :key="'n' + i">
           <span><span class="material-icons-round">sticky_note_2</span>{{ item }}</span>
         </li>
       </ul>
@@ -41,8 +44,11 @@ export default {
   },
   methods: {
     onFabClicked() {
-      this.$router.push('/analytics/cycle/details')
+      this.$router.push('/analytics/cycle/details?i=' + this.$route.query.i)
     }
+  },
+  created() {
+    this.cycle = (new CycleHelper()).getCycles()[this.$route.query.i]
   },
   mounted() {
     setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)
