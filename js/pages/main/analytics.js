@@ -8,10 +8,10 @@ export default {
   `<page-tab-bar>
     <div class="card p-16 mb-16">
       <div class="flex between center mb-8">
-        <h2 class="h3 m-0">0 days</h2><p class="m-0">Average Cycle Length</p>
+        <p class="m-0">0 days</p><p class="m-0">Average Cycle Length</p>
       </div>
       <div class="flex between center">
-        <h2 class="h3 m-0">0 days</h2><p class="m-0">Average Period Length</p>
+        <p class="m-0">0 days</p><p class="m-0">Average Period Length</p>
       </div>
     </div>
     <router-link v-for="index in 6" :key="index" to="/analytics/cycle" class="card p-16 red mb-16">
