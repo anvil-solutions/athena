@@ -1,3 +1,4 @@
+import Common from './common.js'
 import JsonHelper from './json.js'
 
 const KEY = 'periods'
@@ -32,7 +33,7 @@ export default class CycleHelper {
         periodEnd: x[1] || date.getTime(),
         end: this.periods.length > i + 1 ? this.periods[i + 1][0] : date.getTime()
       }
-      object.days = Math.floor((object.end - object.start) / 86400000)
+      object.days = Common.getDaysDifference(object.start, object.end)
       return object
     })
   }
