@@ -36,4 +36,11 @@ export default class CycleHelper {
       return object
     })
   }
+  getStats() {
+    const cycles = this.getCycles().slice(0, -1)
+    return {
+      cycle: Math.round(cycles.reduce((acc, cur) => acc + cur.end - cur.start, 0) / cycles.length / 86400000),
+      period: Math.round(cycles.reduce((acc, cur) => acc + cur.periodEnd - cur.start, 0) / cycles.length / 86400000)
+    }
+  }
 }
