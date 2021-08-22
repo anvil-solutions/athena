@@ -2,14 +2,14 @@ import Page from '../components/page.js'
 
 import Common from '../helpers/common.js'
 import CycleHelper from '../helpers/cycle.js'
+import DayHelper from '../helpers/day.js'
 
 export default {
   name: 'cycle-details',
   data() {
     return {
-      symptoms: ['a', 'b'],
-      notes: ['a', 'b'],
-      cycle: {}
+      cycle: {},
+      data: {}
     }
   },
   computed: {
@@ -33,16 +33,16 @@ export default {
     </div>
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Symptoms</h3>
-      <ul class="link-list m-0">
-        <li v-for="(item, i) in symptoms" :key="'s' + i">
+      <ul class="link-list m-0 ux-list">
+        <li v-for="(item, i) in data.symptoms" :key="'s' + i">
           <span><span class="material-icons-round">healing</span>{{ item }}</span>
         </li>
       </ul>
     </div>
     <div class="card mb-16">
       <h3 class="p-16 pb-0 m-0">Notes</h3>
-      <ul class="link-list m-0">
-        <li v-for="(item, i) in notes" :key="'n' + i">
+      <ul class="link-list m-0 ux-list">
+        <li v-for="(item, i) in data.notes" :key="'n' + i">
           <span><span class="material-icons-round">sticky_note_2</span>{{ item }}</span>
         </li>
       </ul>
@@ -59,6 +59,7 @@ export default {
   },
   created() {
     this.cycle = (new CycleHelper()).getCycles()[this.$route.query.i]
+    this.data = DayHelper.getData(this.cycle.start, this.cycle.end)
   },
   mounted() {
     setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)

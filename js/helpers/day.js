@@ -68,4 +68,23 @@ export default class DayHelper {
     if (data.intercourse) icons.push('favorite')
     return icons
   }
+  static getData(start, stop) {
+    const result = {
+      symptoms: [],
+      notes: []
+    }
+    const keys = Object.keys(localStorage).filter(x =>
+      x.startsWith('a2') && x >= 'a' + Identifiers.getDateId(new Date(start)) && x <= 'a' + Identifiers.getDateId(new Date(stop))
+    )
+    keys.forEach(item => {
+      const data = JsonHelper.get(item)
+      result.symptoms.push(...data.symptoms)
+      result.notes.push(...data.notes)
+    })
+    result.symptoms = Array.from(new Set(result.symptoms))
+    result.notes = Array.from(new Set(result.notes))
+    result.symptoms.sort((a, b) => a.localeCompare(b))
+    result.notes.sort((a, b) => a.localeCompare(b))
+    return result
+  }
 }

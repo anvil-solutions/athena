@@ -538,6 +538,13 @@ h2 > .c-icon {
   text-align: center;
   content: 'No results.'
 }
+.ux-list:empty:after {
+  display: block;
+  color: var(--text-color-secondary);
+  padding: 16px;
+  text-align: center;
+  content: 'No entries.'
+}
 .medications:empty:after {
   display: block;
   color: var(--text-color-secondary);
