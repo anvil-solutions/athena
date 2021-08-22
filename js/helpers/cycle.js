@@ -44,8 +44,15 @@ export default class CycleHelper {
       cycle: Math.round(cycles.reduce((acc, cur) => acc + cur.end - cur.start, 0) / cycles.length / DAY_IN_MS),
       period: Math.round(cycles.reduce((acc, cur) => acc + cur.periodEnd - cur.start, 0) / cycles.length / DAY_IN_MS)
     }
-    object.nextPeriod = this.periods.slice(-1)[0][0] + object.cycle * DAY_IN_MS
-    object.nextPeriodDays = Common.getDaysDifference((new Date()).getTime(), object.nextPeriod)
+    if (this.periods.length > 1) {
+      object.nextPeriod = this.periods.slice(-1)[0][0] + object.cycle * DAY_IN_MS
+      object.nextPeriodDays = Common.getDaysDifference((new Date()).getTime(), object.nextPeriod)
+    } else {
+      object.cycle = 0
+      object.period = 0
+      object.nextPeriod = null
+      object.nextPeriodDays = 0
+    }
     return object
   }
 }
