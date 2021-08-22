@@ -71,7 +71,7 @@ export default {
             <span v-on:click.stop="removeMedication(i)" class="material-icons-round text">remove_circle_outline</span>
           </div>
         </span></li>
-        <li><router-link to="/medications"><span class="material-icons-round">add</span>Add Medication</router-link></li>
+        <li><router-link :to="'/medications?date=' + helper.dateId"><span class="material-icons-round">add</span>Add Medication</router-link></li>
       </ul>
     </div>
     <ul class="card link-list m-0">
