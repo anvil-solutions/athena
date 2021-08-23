@@ -44,7 +44,7 @@ export default {
       <button
         v-for="(item, i) in days"
         :key="i"
-        :class="(item.highlighted ? 'today' : '') + ' ' + item.class"
+        :class="(item.highlighted ? 'highlighted' : '') + ' ' + item.class"
         type="button"
         v-on:click="if (item.clickable) openDay(item.day)">
           <div>{{ item.title }}</div>
@@ -82,6 +82,7 @@ export default {
       else offset -= 1
       let dayCount = 1
       let dateId = null
+      let date = null
       let inPeriod = false
       let ovulation = false
       let fertile = false
@@ -91,16 +92,18 @@ export default {
           if (offset == 0) {
             if (dayCount > lastDay.getDate()) break
             dateId = this.getDateId(dayCount)
-            inPeriod = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.start, x.periodEnd))
-            ovulation = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.ovulation, x.ovulation))
-            fertile = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.fertileStart, x.fertileEnd))
-            if (ovulation) console.log(dayCount)
+            date = Identifiers.dateIdToDate(dateId)
+            inPeriod = cycles.some(x => Common.isInTimeSpan(date, x.start, x.periodEnd))
+            ovulation = cycles.some(x => Common.isInTimeSpan(date, x.ovulation, x.ovulation))
+            fertile = cycles.some(x => Common.isInTimeSpan(date, x.fertileStart, x.fertileEnd))
             icons = DayHelper.getIndicators(dateId)
             if (ovulation) icons.push('egg_alt')
             days.push({
               title: dayCount,
               icons: icons,
-              class: (inPeriod ? 'red ' : '') + (fertile ? 'light-blue ' : ''),
+              class: (inPeriod ? 'red ' : '')
+                + (fertile ? 'light-blue ' : '')
+                + (dayCount > today.getDate() || this.month > today.getMonth() || this.year > today.getFullYear() ? 'future' : ''),
               clickable: true,
               day: dayCount,
               highlighted: (dayCount == today.getDate()

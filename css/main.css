@@ -582,9 +582,12 @@ h2 > .c-icon {
   margin: 0;
   padding: 8px 12px;
 }
-#calendar .today {
+#calendar .highlighted {
   background: var(--accent-color-alpha);
   color: var(--accent-color);
+}
+#calendar .future {
+  opacity: .6;
 }
 
 /* alignment */
