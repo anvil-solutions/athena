@@ -38,6 +38,11 @@ export default class CycleHelper {
       return object
     })
   }
+  filterCycles(start, stop) {
+    return this.getCycles().filter(x =>
+      x.end >= start.getTime() && x.start <= stop.getTime()
+    )
+  }
   getStats() {
     const cycles = this.getCycles().slice(0, -1)
     const object = {
