@@ -124,7 +124,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-new Vue({
+const app = new Vue({
   router,
   el: '#app',
   mounted() {
@@ -152,3 +152,5 @@ new Vue({
     else metaColor.setAttribute('content', '#fff')
   }
 })
+
+window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor

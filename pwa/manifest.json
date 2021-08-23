@@ -45,7 +45,7 @@ layout: null
   "start_url": "{{ site.baseurl }}/#/overview",
   "background_color": "#121212",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "any",
   "scope": "{{ site.baseurl }}/",
   "theme_color": "#1e1e1e",
   "shortcuts": [
@@ -57,6 +57,11 @@ layout: null
     {
       "name": "Calendar",
       "url": "{{ site.baseurl }}/#/calendar",
+      "icons": [{ "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Analytics",
+      "url": "{{ site.baseurl }}/#/analytics",
       "icons": [{ "src": "{{ site.baseurl }}/pwa/mipmap-xxxhdpi/ic_launcher.png", "sizes": "192x192" }]
     },
     {

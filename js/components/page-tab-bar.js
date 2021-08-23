@@ -15,7 +15,7 @@ export default {
         },
         {
           icon: 'leaderboard',
-          title: 'Calendar',
+          title: 'Analytics',
           url: '/analytics'
         },
         {
