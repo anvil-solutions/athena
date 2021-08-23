@@ -38,6 +38,7 @@
 }
 .light-blue {
   --accent-color: #00B0FF;
+  --accent-color-alpha: #00B0FF20;
   --accent-color-light: #40C4FF;
   --accent-color-dark: #0091EA;
 }

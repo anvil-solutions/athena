@@ -6,8 +6,6 @@ import Modal from '../components/modal.js'
 import DayHelper from '../helpers/day.js'
 import Identifiers from '../helpers/identifiers.js'
 
-//TODO: Working Data
-
 export default {
   name: 'day',
   data() {

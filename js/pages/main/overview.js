@@ -7,8 +7,6 @@ import Common from '../../helpers/common.js'
 import DayHelper from '../../helpers/day.js'
 import CycleHelper from '../../helpers/cycle.js'
 
-//TODO: Fertility
-
 export default {
   name: 'overview',
   data() {
@@ -33,7 +31,7 @@ export default {
           <p class="m-0">Next Period</p>
         </div>
         <div>
-          <h3 class="m-0">Unknown</h3>
+          <h3 class="m-0">{{ (new Date(stats.nextFertile)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
           <p class="m-0">Next Fertile</p>
         </div>
       </div>

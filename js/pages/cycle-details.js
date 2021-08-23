@@ -25,6 +25,7 @@ export default {
   template:
   `<page title="Cycle">
     <div class="text-center"><span class="very-big accent material-icons-round mb-16">water_drop</span></div>
+    <p class="text-center mt-0 mb-16">Enter your period's details below.</p>
     <label for="start">Period Start</label>
     <input ref="start" id="start" class="mb-16" type="date"></input>
     <label for="end">Period End</label>

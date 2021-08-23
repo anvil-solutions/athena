@@ -6,7 +6,6 @@ import DayHelper from '../../helpers/day.js'
 import CycleHelper from '../../helpers/cycle.js'
 
 //TODO: Fix alignment
-//TODO: Fertility painting
 
 export default {
   name: 'calendar',
@@ -25,7 +24,7 @@ export default {
   template:
   `<page-tab-bar id="calendar">
     <div class="card mb-16 p-16">
-      <h2>
+      <h2 class="h3">
         <span>{{ months[month] }}</span>
         <div class="controls">
           <button type="button" v-on:click="prevMonth()">Previous</button>
@@ -84,22 +83,31 @@ export default {
       let dayCount = 1
       let dateId = null
       let inPeriod = false
+      let ovulation = false
+      let fertile = false
+      let icons = []
       for (i = 0; i < 6; i++) {
         for (j = 0; j < 7; j++) {
           if (offset == 0) {
             if (dayCount > lastDay.getDate()) break
             dateId = this.getDateId(dayCount)
             inPeriod = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.start, x.periodEnd))
+            ovulation = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.ovulation, x.ovulation))
+            fertile = cycles.some(x => Common.isInTimeSpan(Identifiers.dateIdToDate(dateId), x.fertileStart, x.fertileEnd))
+            if (ovulation) console.log(dayCount)
+            icons = DayHelper.getIndicators(dateId)
+            if (ovulation) icons.push('egg_alt')
             days.push({
               title: dayCount,
-              icons: DayHelper.getIndicators(dateId),
-              class: inPeriod ? 'red' : '',
+              icons: icons,
+              class: (inPeriod ? 'red ' : '') + (fertile ? 'light-blue ' : ''),
               clickable: true,
               day: dayCount,
               highlighted: (dayCount == today.getDate()
                 && this.month == today.getMonth()
                 && this.year == today.getFullYear())
                 || inPeriod
+                || fertile
             })
             dayCount++
           } else {

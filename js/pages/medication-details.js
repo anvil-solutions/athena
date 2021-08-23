@@ -19,6 +19,7 @@ export default {
   template:
   `<page title="Medication">
     <div class="text-center"><span class="very-big accent material-icons-round mb-16">medication</span></div>
+    <p class="text-center mt-0 mb-16">Enter the details below.</p>
     <label for="title">Title</label>
     <input id="title" v-model="medications[index].title" class="mb-16" type="text" autocomplete="off"></input>
     <label for="time">Time</label>
