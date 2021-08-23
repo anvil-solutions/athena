@@ -44,8 +44,9 @@ export default class CycleHelper {
   }
   getCyclesPlus(additionalCycles) {
     const cycles = this.getCycles()
+    if (this.periods.length < 1) return cycles
+    
     const stats = this.getStats()
-
     cycles[cycles.length - 1].end = cycles[cycles.length - 1].start + stats.cycle * DAY_IN_MS
 
     let lastItem = null
