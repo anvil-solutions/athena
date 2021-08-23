@@ -20,7 +20,7 @@ export default class CycleHelper {
     if (this.isStarted()) {
       this.periods[this.periods.length - 1][1] = (new Date).getTime()
     } else {
-      this.periods.push([(new Date).getTime(), null])
+      this.periods.push([(new Date).getTime() - 12 * DAY_IN_MS, null])
     }
     this.save()
   }
@@ -49,10 +49,13 @@ export default class CycleHelper {
     )
   }
   getStats() {
-    const cycles = this.getCycles().slice(0, -1)
     const object = {
-      cycle: Math.round(cycles.reduce((acc, cur) => acc + cur.end - cur.start, 0) / cycles.length / DAY_IN_MS),
-      period: Math.round(cycles.reduce((acc, cur) => acc + cur.periodEnd - cur.start, 0) / cycles.length / DAY_IN_MS)
+      cycle: Math.round(this.periods.reduce((acc, cur, i) =>
+        acc + (this.periods.length > i + 1 ? this.periods[i + 1][0] - cur[0] : 0)
+      , 0) / (this.periods.length - 1) / DAY_IN_MS),
+      period: Math.round(this.periods.reduce((acc, cur, i) =>
+        acc + (this.periods.length > i + 1 ? cur[1] - cur[0] : 0)
+      , 0) / (this.periods.length - 1) / DAY_IN_MS)
     }
     if (this.periods.length > 1) {
       object.nextPeriod = this.periods.slice(-1)[0][0] + object.cycle * DAY_IN_MS
