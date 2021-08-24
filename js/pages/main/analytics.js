@@ -1,4 +1,7 @@
+/*global Vue*/
+
 import PageTabBar from '../../components/page-tab-bar.js'
+import Modal from '../../components/modal.js'
 
 import Common from '../../helpers/common.js'
 import CycleHelper from '../../helpers/cycle.js'
@@ -42,5 +45,22 @@ export default {
   created() {
     this.cycles = this.helper.getCycles().reverse()
     this.stats = this.helper.getStats()
+  },
+  mounted() {
+    if (localStorage.getItem('help_analytics') == null) {
+      const ComponentClass = Vue.extend(Modal)
+      const instance = new ComponentClass({
+        propsData: {
+          title: 'Analytics Page',
+          message: 'This page provides you with an overview of all your past cycles. Tap on them to view symptoms, notes, and other details.',
+          positiveFunction: () => {
+            localStorage.setItem('help_analytics', '1')
+          },
+          negativeButton: false
+        }
+      })
+      instance.$mount()
+      this.$root.$el.appendChild(instance.$el)
+    }
   }
 }

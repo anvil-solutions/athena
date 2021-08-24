@@ -115,5 +115,22 @@ export default {
     this.cycleHelper = new CycleHelper()
     this.startStopString = this.cycleHelper.isStarted() ? 'End' : 'Start'
     this.stats = this.cycleHelper.getStats()
+  },
+  mounted() {
+    if (localStorage.getItem('help_overview') == null) {
+      const ComponentClass = Vue.extend(Modal)
+      const instance = new ComponentClass({
+        propsData: {
+          title: 'Overview Page',
+          message: 'On this page, you can track your current cycle. Quickly add symptoms, notes, and more.',
+          positiveFunction: () => {
+            localStorage.setItem('help_overview', '1')
+          },
+          negativeButton: false
+        }
+      })
+      instance.$mount()
+      this.$root.$el.appendChild(instance.$el)
+    }
   }
 }

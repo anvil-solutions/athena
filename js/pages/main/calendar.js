@@ -1,4 +1,7 @@
+/*global Vue*/
+
 import PageTabBar from '../../components/page-tab-bar.js'
+import Modal from '../../components/modal.js'
 
 import Common from '../../helpers/common.js'
 import Identifiers from '../../helpers/identifiers.js'
@@ -167,7 +170,23 @@ export default {
     const date = new Date()
     this.year = date.getFullYear()
     this.month = date.getMonth()
-
     this.getDays()
+  },
+  mounted() {
+    if (localStorage.getItem('help_calendar') == null) {
+      const ComponentClass = Vue.extend(Modal)
+      const instance = new ComponentClass({
+        propsData: {
+          title: 'Calendar Page',
+          message: 'Use this page to track your current cycle, your past cycles, or to see when your future periods will be.',
+          positiveFunction: () => {
+            localStorage.setItem('help_calendar', '1')
+          },
+          negativeButton: false
+        }
+      })
+      instance.$mount()
+      this.$root.$el.appendChild(instance.$el)
+    }
   }
 }
