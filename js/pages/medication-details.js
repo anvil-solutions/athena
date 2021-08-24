@@ -5,8 +5,6 @@ import Modal from '../components/modal.js'
 
 import MedicationsHelper from '../helpers/medications.js'
 
-//TODO: Reminders
-
 export default {
   name: 'medication-details',
   data() {

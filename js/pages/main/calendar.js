@@ -14,7 +14,8 @@ export default {
       month: 0,
       year: 0,
       days: [],
-      cycleHelper: {}
+      cycles: [],
+      warning: false
     }
   },
   computed: {
@@ -39,7 +40,7 @@ export default {
         </div>
       </h3>
     </div>
-    <p class="card mb-16 p-16" v-if="cycleHelper.periods.length < 2">
+    <p class="card mb-16 p-16" v-if="warning">
       There is not enough data to predict future cycles yet.
       At least two cycles are needed for predictions.
     </p>
@@ -73,14 +74,18 @@ export default {
     openDay(day) {
       this.$router.push('/day?date=' + this.getDateId(day))
     },
+    filterCycles(start, stop) {
+      return this.cycles.filter(x =>
+        x.end >= start.getTime() && x.start <= stop.getTime()
+      )
+    },
     getDays() {
       let i, j
       const days = []
-
       const firstDay = new Date(this.year, this.month, 1)
       const today = new Date()
       const lastDay = new Date(this.year, this.month + 1, 0)
-      const cycles = this.cycleHelper.filterCycles(firstDay, lastDay)
+      const cycles = this.filterCycles(firstDay, lastDay)
       let offset = firstDay.getDay()
       if (offset == 0) offset += 6
       else offset -= 1
@@ -156,10 +161,12 @@ export default {
     }
   },
   created() {
+    const cycleHelper = new CycleHelper
+    this.cycles = cycleHelper.getCyclesPlus(6)
+    this.warning = cycleHelper.periods.length < 2
     const date = new Date()
     this.year = date.getFullYear()
     this.month = date.getMonth()
-    this.cycleHelper = new CycleHelper
 
     this.getDays()
   }

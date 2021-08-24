@@ -12,16 +12,16 @@ function DefaultObject() {
   }
 }
 
-function getLatestEntry(limit) {
-  const keys = Object.keys(localStorage).filter(x => x.startsWith('a2') && x < limit).sort((a, b) => a.localeCompare(b) * (-1))
-  return keys.length == 0 ? DefaultObject() : JsonHelper.get(keys[0])
-}
-
 function prepareDefault(dateId) {
-  const latestEntry = getLatestEntry('a' + dateId)
-  const result = DefaultObject()
-  result.pregnancy = latestEntry.pregnancy
-  return result
+  const keys = Object.keys(localStorage).filter(x => x.startsWith('a2') && x < 'a' + dateId).sort((a, b) => a.localeCompare(b) * (-1))
+  if (keys.length == 0) {
+    return DefaultObject()
+  } else {
+    const latestEntry = JsonHelper.get(keys[0])
+    const result = DefaultObject()
+    result.pregnancy = latestEntry.pregnancy
+    return result
+  }
 }
 
 export default class DayHelper {

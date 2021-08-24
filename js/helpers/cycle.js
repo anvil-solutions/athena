@@ -28,12 +28,12 @@ export default class CycleHelper {
   }
   getCycles() {
     const stats = this.getStats()
-    const date = new Date
+    const now = (new Date).getTime()
     return this.periods.map((x, i) => {
       const object = {
         start: x[0],
-        periodEnd: x[1] || date.getTime(),
-        end: this.periods.length > i + 1 ? this.periods[i + 1][0] : date.getTime()
+        periodEnd: x[1] || now,
+        end: this.periods.length > i + 1 ? this.periods[i + 1][0] : now
       }
       object.ovulation = (this.periods.length > i + 1 ? object.end : object.start + stats.cycle * DAY_IN_MS) - 14 * DAY_IN_MS
       object.fertileStart = object.ovulation - 3 * DAY_IN_MS
@@ -63,11 +63,6 @@ export default class CycleHelper {
       cycles.push(object)
     }
     return cycles
-  }
-  filterCycles(start, stop) {
-    return this.getCyclesPlus(6).filter(x =>
-      x.end >= start.getTime() && x.start <= stop.getTime()
-    )
   }
   getStats() {
     const object = {
