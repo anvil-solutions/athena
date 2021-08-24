@@ -39,6 +39,10 @@ export default {
         </div>
       </h3>
     </div>
+    <p class="card mb-16 p-16" v-if="cycleHelper.periods.length < 2">
+      There is not enough data to predict future cycles yet.
+      At least two cycles are needed for predictions.
+    </p>
     <div class="card p-16 text-center grid-7 no-stretch">
       <div v-for="(item, i) in weekDays" :key="i + 200">{{ item }}</div>
       <button

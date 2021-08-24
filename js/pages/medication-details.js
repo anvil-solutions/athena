@@ -23,7 +23,19 @@ export default {
     <label for="title">Title</label>
     <input id="title" v-model="medications[index].title" class="mb-16" type="text" autocomplete="off"></input>
     <label for="time">Time</label>
-    <input id="time" v-model="medications[index].time" class="mb-16" type="time"></input>
+    <input ref="time" id="time" class="mb-16" type="time"></input>
+    <ul class="link-list mt-0 mb-16 ignore-page-padding">
+      <li><span v-on:click="onToggleClicked('reminder')">
+        <div class="flex between">
+          <span><span class="material-icons-round">notifications</span>Reminder</span>
+          <span class="material-icons-round text">{{ boxState('reminder') }}</span>
+        </div>
+      </span></li>
+      <li><div class="flex p-16">
+        <span class="material-icons-round">warning</span>
+        <span>Reminders are experimental and do not work on Apple devices!</span>
+      </div></li>
+    </ul>
     <div v-if="editing" class="flex end">
       <button type="button" v-on:click="onDeleteClicked()">Delete</button>
     </div>
@@ -33,6 +45,12 @@ export default {
     Page
   },
   methods: {
+    boxState(value) {
+      return this.medications[this.index][value] ? 'check_box' : 'check_box_outline_blank'
+    },
+    onToggleClicked(value) {
+      this.medications[this.index][value] = !this.medications[this.index][value]
+    },
     onDeleteClicked() {
       const ComponentClass = Vue.extend(Modal)
       const instance = new ComponentClass({
@@ -51,6 +69,7 @@ export default {
     },
     onFabClicked() {
       if (this.medications[this.index].title.length > 0) {
+        this.medications[this.index].time = this.$refs.time.value
         MedicationsHelper.set(this.medications)
         this.$router.push(this.$route.query.date ? '/medications?date=' + this.$route.query.date : '/medications')
       } else {
@@ -72,11 +91,12 @@ export default {
     this.index = this.medications.findIndex(x => x.title == this.$route.query.i)
     if (this.index == -1) {
       this.index = this.medications.length
-      this.medications.push({ title: '', time: null })
+      this.medications.push({ title: '', time: null, reminder: false })
       this.editing = false
     }
   },
   mounted() {
+    this.$refs.time.value = this.medications[this.index].time
     setTimeout(() => { this.$refs.fab?.classList?.remove('hidden') }, 500)
   }
 }

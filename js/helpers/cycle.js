@@ -16,9 +16,9 @@ export default class CycleHelper {
   }
   startStop() {
     if (this.isStarted()) {
-      this.periods[this.periods.length - 1][1] = (new Date).getTime()
+      this.periods[this.periods.length - 1][1] = (new Date).getTime() - 43200000
     } else {
-      this.periods.push([(new Date).getTime() - 43200000, null])
+      this.periods.push([(new Date).getTime(), null])
     }
     this.save()
   }
@@ -44,8 +44,8 @@ export default class CycleHelper {
   }
   getCyclesPlus(additionalCycles) {
     const cycles = this.getCycles()
-    if (this.periods.length < 1) return cycles
-    
+    if (this.periods.length < 2) return cycles
+
     const stats = this.getStats()
     cycles[cycles.length - 1].end = cycles[cycles.length - 1].start + stats.cycle * DAY_IN_MS
 
