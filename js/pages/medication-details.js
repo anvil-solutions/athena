@@ -33,6 +33,10 @@ export default {
       </span></li>
       <li><div class="flex p-16">
         <span class="material-icons-round">warning</span>
+        <span>Notifications are not available yet!</span>
+      </div></li>
+      <li><div class="flex p-16">
+        <span class="material-icons-round">warning</span>
         <span>Reminders are experimental and do not work on Apple devices!</span>
       </div></li>
     </ul>

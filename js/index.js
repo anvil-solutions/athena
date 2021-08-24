@@ -1,6 +1,7 @@
 /*global Vue, VueRouter*/
 
 import JsonHelper from './helpers/json.js'
+import NotificationHelper from './helpers/notifications.js'
 
 const Unknown = () => import('./pages/unknown.js')
 
@@ -154,3 +155,5 @@ const app = new Vue({
 })
 
 window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
+
+NotificationHelper.updatePendingNotifications()

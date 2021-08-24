@@ -69,3 +69,10 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
+self.addEventListener('notificationclick', event => {
+  event.waitUntil(self.clients.matchAll().then(clients => {
+    if (clients.length) clients[0].focus();
+    else self.clients.openWindow('/');
+  }));
+});
