@@ -33,13 +33,13 @@ export default {
         <span class="material-icons-round">warning</span>
         <span>Notifications are not available yet!</span>
       </div></li>
-      <li><div class="flex p-16">
+      <!--li><div class="flex p-16">
         <span class="material-icons-round">warning</span>
         <span>Reminders are experimental and do not work on Apple devices!</span>
-      </div></li>
+      </div></li-->
     </ul>
     <div v-if="editing" class="flex end">
-      <button type="button" v-on:click="onDeleteClicked()">Delete</button>
+      <button type="button" class="mb-48" v-on:click="onDeleteClicked()">Delete</button>
     </div>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">done</div>
   </page>`,

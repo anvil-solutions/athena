@@ -31,7 +31,7 @@ export default {
     <label for="end">Period End</label>
     <input ref="end" id="end" class="mb-16" type="date"></input>
     <div v-if="editing" class="flex end">
-      <button type="button" v-on:click="onDeleteClicked()">Delete</button>
+      <button type="button" class="mb-48" v-on:click="onDeleteClicked()">Delete</button>
     </div>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">done</div>
   </page>`,
