@@ -26,8 +26,6 @@ const BackupAndRestore = () => import('./pages/backup-and-restore.js')
 const Help = () => import('./pages/help.js')
 const About = () => import('./pages/about.js')
 
-Vue.config.devtools = location.hostname == 'localhost'
-
 if (/iPhone/.test(navigator.platform)) {
   const link = document.createElement('link')
   link.href = './css/ios.min.css'
@@ -154,6 +152,9 @@ const app = new Vue({
   }
 })
 
-window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
+//NotificationHelper.updatePendingNotifications()
 
-NotificationHelper.updatePendingNotifications()
+if (location.hostname == 'localhost') {
+  Vue.config.devtools = true
+  window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = app.constructor
+}
