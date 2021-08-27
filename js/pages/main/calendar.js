@@ -43,7 +43,7 @@ export default {
         </div>
       </h3>
     </div>
-    <p class="card mb-16 p-16" v-if="warning">
+    <p class="card p mb-16 p-16" v-if="warning">
       There is not enough data to predict future cycles yet.
       At least two cycles are needed for predictions.
     </p>

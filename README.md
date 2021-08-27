@@ -1,7 +1,7 @@
 ![Icon](https://raw.githubusercontent.com/Domi04151309/athena/main/pwa/mipmap-xxxhdpi/ic_launcher.png)
 
 # Athena
-A working title
+Your personal period, cycle, and symptom tracker.
 
 ## Libraries
 - https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js

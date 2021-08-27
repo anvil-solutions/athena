@@ -23,19 +23,23 @@ export default {
   template:
   `<page-tab-bar>
     <div class="text-center mb-32">
-      <h2 class="m-0">{{ Common.getDayString(stats.nextPeriodDays) }}</h2>
+      <h2 class="m-0">{{ cycleHelper.periods.length < 2 ? '?' : Common.getDayString(stats.nextPeriodDays) }}</h2>
       <p class="mt-0 mb-16">Until Next Period</p>
       <div class="flex space">
         <div>
-          <h3 class="m-0">{{ (new Date(stats.nextPeriod)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
+          <h3 class="m-0">{{ cycleHelper.periods.length < 2 ? '?' : (new Date(stats.nextPeriod)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
           <p class="m-0">Next Period</p>
         </div>
         <div>
-          <h3 class="m-0">{{ (new Date(stats.nextFertile)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
+          <h3 class="m-0">{{ cycleHelper.periods.length < 2 ? '?' : (new Date(stats.nextFertile)).toLocaleDateString(...Common.simpleDateParams) }}</h3>
           <p class="m-0">Next Fertile</p>
         </div>
       </div>
     </div>
+    <p class="card p mb-16 p-16" v-if="cycleHelper.periods.length < 2">
+      There is not enough data to predict future cycles yet.
+      At least two cycles are needed for predictions.
+    </p>
     <ul class="link-list card">
       <li>
         <div class="flex between p-16">

@@ -14,7 +14,7 @@ export default {
       <h2>Athena</h2>
       <p>{{ version }}</p>
       <p>
-        A working title
+        Your personal period, cycle, and symptom tracker.
       </p>
     </div>
     <h2 class="mt-16">Libraries</h2>

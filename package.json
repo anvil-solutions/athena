@@ -1,7 +1,7 @@
 {
   "name": "athena",
   "version": "1.0.0",
-  "description": "A working title",
+  "description": "Your personal period, cycle, and symptom tracker.",
   "main": "index.html",
   "dependencies": {},
   "devDependencies": {

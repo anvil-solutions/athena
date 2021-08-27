@@ -154,7 +154,7 @@ h2 {
 img {
   max-width: 100%;
 }
-table, label, ul, ol, p, .p {
+table, label, ul, ol, p, .p, p.p {
   color: var(--text-color-secondary);
 }
 ul, ol {
