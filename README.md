@@ -12,4 +12,4 @@ Your personal period, cycle, and symptom tracker.
 ## Images
 Saved with the width set to 1920px and the quality set to 60%
 
-Copyright 2021 Domi04151309 & Nils Döhring
+Copyright 2021 Dominik Reichl & Nils Döhring
