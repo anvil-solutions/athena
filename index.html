@@ -1,22 +1,33 @@
 ---
 layout: null
+title: Athena
+description: "Your personal period, cycle, and symptom tracker."
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Athena</title>
+  <title>{{ page.title }}</title>
   <link rel="preload" href="{{ site.baseurl }}/css/icon.min.css" as="style"/>
   <link rel="preload" href="{{ site.baseurl }}/css/main.min.css" as="style"/>
   <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/icon.min.css" />
   <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/css/main.min.css" />
+  <link rel="icon" href="{{ site.baseurl }}/favicon.ico">
+  <link rel="apple-touch-icon" href="{{ site.baseurl }}/apple-touch-icon.png" />
+  <link rel="manifest" href="{{ site.baseurl }}/pwa/manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#1e1e1e">
-  <link rel="icon" href="{{ site.baseurl }}/favicon.ico">
-  <meta name="description" content="Your personal period, cycle, and symptom tracker." />
-  <meta property="og:image" content="{{ site.baseurl }}/preview.jpg">
-  <link rel="manifest" href="{{ site.baseurl }}/pwa/manifest.json">
+  <meta name="description" content="{{ page.description }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url | remove: '.html' }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.description }}">
+  <meta property="og:image" content="{{ site.url }}/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title }}">
+  <meta name="twitter:description" content="{{ page.description }}">
+  <meta name="twitter:image" content="{{ site.url }}/preview.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="HandheldFriendly" content="true">
 </head>
