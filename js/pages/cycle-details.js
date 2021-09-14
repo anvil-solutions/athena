@@ -18,8 +18,7 @@ export default {
   data() {
     return {
       index: 0,
-      helper: {},
-      editing: true
+      helper: {}
     }
   },
   template:
@@ -30,31 +29,12 @@ export default {
     <input ref="start" id="start" class="mb-16" type="date"></input>
     <label for="end">Period End</label>
     <input ref="end" id="end" class="mb-16" type="date"></input>
-    <div v-if="editing" class="flex end">
-      <button type="button" class="mb-48" v-on:click="onDeleteClicked()">Delete</button>
-    </div>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">done</div>
   </page>`,
   components: {
     Page
   },
   methods: {
-    onDeleteClicked() {
-      const ComponentClass = Vue.extend(Modal)
-      const instance = new ComponentClass({
-        propsData: {
-          title: 'Delete Cycle',
-          message: 'Are you sure you want to delete this cycle? This cannot be undone.',
-          positiveText: 'Delete',
-          positiveFunction: () => {
-            this.helper.remove(this.index)
-            setTimeout(() => this.$router.push('/analytics'), 1000)
-          }
-        }
-      })
-      instance.$mount()
-      this.$root.$el.appendChild(instance.$el)
-    },
     onFabClicked() {
       if (this.$refs.start.value == '') {
         const ComponentClass = Vue.extend(Modal)
@@ -80,7 +60,6 @@ export default {
     if (this.$route.query.i == null) {
       this.index = this.helper.periods.length
       this.helper.periods.push([null, null])
-      this.editing = false
     } else {
       this.index = this.$route.query.i
     }

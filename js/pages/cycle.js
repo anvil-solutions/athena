@@ -1,4 +1,7 @@
+/*global Vue*/
+
 import Page from '../components/page.js'
+import Modal from '../components/modal.js'
 
 import Common from '../helpers/common.js'
 import CycleHelper from '../helpers/cycle.js'
@@ -8,6 +11,7 @@ export default {
   name: 'cycle-details',
   data() {
     return {
+      helper: {},
       cycle: {},
       data: {}
     }
@@ -47,18 +51,38 @@ export default {
         </li>
       </ul>
     </div>
+    <div class="flex end">
+      <button type="button" class="mb-48" v-on:click="onDeleteClicked()">Delete</button>
+    </div>
     <div ref="fab" class="material-icons-round fab hidden" v-on:click="onFabClicked()">edit</div>
   </page>`,
   components: {
     Page
   },
   methods: {
+    onDeleteClicked() {
+      const ComponentClass = Vue.extend(Modal)
+      const instance = new ComponentClass({
+        propsData: {
+          title: 'Delete Cycle',
+          message: 'Are you sure you want to delete this cycle? This cannot be undone.',
+          positiveText: 'Delete',
+          positiveFunction: () => {
+            this.helper.remove(this.index)
+            setTimeout(() => this.$router.push('/analytics'), 1000)
+          }
+        }
+      })
+      instance.$mount()
+      this.$root.$el.appendChild(instance.$el)
+    },
     onFabClicked() {
       this.$router.push('/analytics/cycle/details?i=' + this.$route.query.i)
     }
   },
   created() {
-    this.cycle = (new CycleHelper()).getCycles()[this.$route.query.i]
+    this.helper = new CycleHelper()
+    this.cycle = this.helper.getCycles()[this.$route.query.i]
     this.data = DayHelper.getData(this.cycle.start, this.cycle.end)
   },
   mounted() {
