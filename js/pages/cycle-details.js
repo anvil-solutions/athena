@@ -51,7 +51,7 @@ export default {
         this.helper.periods[this.index][0] = (new Date(this.$refs.start.value)).getTime()
         this.helper.periods[this.index][1] = (new Date(this.$refs.end.value)).getTime()
         this.helper.save()
-        this.$router.push('/analytics/cycle?i=' + this.index)
+        this.$router.push('/analytics')
       }
     }
   },
