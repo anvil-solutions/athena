@@ -115,7 +115,7 @@ export default {
               icons: icons,
               class: (inPeriod ? 'red ' : '')
                 + (fertile ? 'light-blue ' : '')
-                + (dayCount > today.getDate() || this.month > today.getMonth() || this.year > today.getFullYear() ? 'future' : ''),
+                + ((this.year == today.getFullYear() && this.month == today.getMonth() && dayCount > today.getDate()) || (this.year == today.getFullYear() && this.month > today.getMonth()) || this.year > today.getFullYear() ? 'future' : ''),
               clickable: true,
               day: dayCount,
               highlighted: (dayCount == today.getDate()
