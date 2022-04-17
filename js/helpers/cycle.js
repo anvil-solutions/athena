@@ -39,11 +39,15 @@ export default class CycleHelper {
       object.fertileStart = object.ovulation - 3 * DAY_IN_MS
       object.fertileEnd = object.ovulation + 2 * DAY_IN_MS
       object.days = Common.getDaysDifference(object.start, object.end)
+      object.valid = object.end - object.periodEnd > object.periodEnd - object.start
+                      && object.periodEnd - object.start > 0
+                      && object.end - object.start < 3.888e+9
+                      && object.end - object.start > 1.814e+9
       return object
     })
   }
   getCyclesPlus(additionalCycles) {
-    const cycles = this.getCycles()
+    const cycles = this.getCycles().filter(x => x.valid)
     if (this.periods.length < 2) return cycles
 
     const stats = this.getStats()
@@ -66,13 +70,21 @@ export default class CycleHelper {
   }
   getStats() {
     const object = {
-      cycle: Math.round(this.periods.reduce((acc, cur, i) =>
-        acc + (this.periods.length > i + 1 ? this.periods[i + 1][0] - cur[0] : 0)
-      , 0) / (this.periods.length - 1) / DAY_IN_MS),
-      period: Math.round(this.periods.reduce((acc, cur, i) =>
-        acc + (this.periods.length > i + 1 ? cur[1] - cur[0] : 0)
-      , 0) / (this.periods.length - 1) / DAY_IN_MS)
+      cycle: null,
+      period: null
     }
+    let counter = 0
+    this.periods.forEach((item, i) => {
+      let periodLength = (this.periods.length > i + 1 ? item[1] - item[0] : 0)
+      let cycleLength = (this.periods.length > i + 1 ? this.periods[i + 1][0] - item[0] : 0)
+      if (periodLength > 0 && cycleLength - periodLength > periodLength) {
+        object.cycle += cycleLength
+        object.period += periodLength
+        counter++
+      }
+    })
+    object.cycle = Math.round(object.cycle / counter / DAY_IN_MS)
+    object.period = Math.round(object.period / counter / DAY_IN_MS)
     if (this.periods.length > 1) {
       object.nextPeriod = this.periods.slice(-1)[0][0] + object.cycle * DAY_IN_MS
       object.nextPeriodDays = Common.getDaysDifference((new Date()).getTime(), object.nextPeriod)

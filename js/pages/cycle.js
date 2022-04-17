@@ -23,6 +23,7 @@ export default {
   `<page title="Cycle">
     <div class="card p-16 red mb-16">
       <p class="m-0">
+        <span v-if="!cycle.valid" class="material-icons-round small">warning</span>
         <small>{{ (new Date(cycle.start)).toLocaleDateString(...Common.simpleDateParams) }} - {{ (new Date(cycle.end)).toLocaleDateString(...Common.simpleDateParams) }}</small>
       </p>
       <progress :value="cycle.periodEnd - cycle.start" :max="cycle.end - cycle.start"></progress>
@@ -35,8 +36,14 @@ export default {
         <p class="m-0">{{ Common.getDayString(Common.getDaysDifference(cycle.start, cycle.periodEnd)) }}</p><small class="p m-0">Period Length</small>
       </div>
     </div>
+    <div v-if="!cycle.valid" class="card p-16 mb-16">
+      <h3>Invalid Entry</h3>
+      <p>
+        This entry is likely invalid because of the ratio between cycle and period.
+      </p>
+    </div>
     <div class="card mb-16">
-      <h3 class="p-16 pb-0 m-0">Symptoms</h3>
+      <h3 class="p-16 pb-0">Symptoms</h3>
       <ul class="link-list m-0 ux-list">
         <li v-for="(item, i) in data.symptoms" :key="'s' + i">
           <span><span class="material-icons-round">healing</span>{{ item }}</span>
@@ -44,7 +51,7 @@ export default {
       </ul>
     </div>
     <div class="card mb-16">
-      <h3 class="p-16 pb-0 m-0">Notes</h3>
+      <h3 class="p-16 pb-0">Notes</h3>
       <ul class="link-list m-0 ux-list">
         <li v-for="(item, i) in data.notes" :key="'n' + i">
           <span><span class="material-icons-round">sticky_note_2</span>{{ item }}</span>

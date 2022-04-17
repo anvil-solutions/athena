@@ -30,6 +30,7 @@ export default {
     </div>
     <router-link v-for="(item, i) in cycles" :key="i" :to="'/analytics/cycle?i=' + (cycles.length - i - 1)" class="card p-16 red mb-16">
       <p class="m-0">
+        <span v-if="!item.valid && i > 0" class="material-icons-round small">warning</span>
         {{ Common.getDayString(item.days) }}
         <small>{{ (new Date(item.start)).toLocaleDateString(...Common.simpleDateParams) }} - {{ (new Date(item.end)).toLocaleDateString(...Common.simpleDateParams) }}</small>
       </p>

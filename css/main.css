@@ -316,6 +316,7 @@ svg {
 }
 .material-icons-round.small {
   font-size: 16px;
+  vertical-align: text-top;
 }
 .button-bar button {
   background: transparent;
