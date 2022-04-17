@@ -64,7 +64,7 @@ export default {
       this.$root.$el.appendChild(instance.$el)
     },
     onEditClicked(title) {
-      this.$router.push('/medications/details?i=' + title)
+      this.$router.push('/medications/details?i=' + encodeURIComponent(title))
     },
     onFabClicked() {
       this.$router.push('/medications/details')

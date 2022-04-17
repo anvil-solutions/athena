@@ -23,12 +23,12 @@ export default {
     <label for="time">Time</label>
     <input ref="time" id="time" class="mb-16" type="time"></input>
     <ul class="link-list mt-0 mb-16 ignore-page-padding">
-      <li><span v-on:click="onToggleClicked('reminder')">
+      <!--li><span v-on:click="onToggleClicked('reminder')">
         <div class="flex between">
           <span><span class="material-icons-round">notifications</span>Reminder</span>
           <span class="material-icons-round text">{{ boxState('reminder') }}</span>
         </div>
-      </span></li>
+      </span></li-->
       <li><div class="flex p-16">
         <span class="material-icons-round">warning</span>
         <span>Notifications are not available yet!</span>
@@ -90,7 +90,7 @@ export default {
   },
   created() {
     this.medications = MedicationsHelper.get()
-    this.index = this.medications.findIndex(x => x.title == this.$route.query.i)
+    this.index = this.medications.findIndex(x => x.title == decodeURIComponent(this.$route.query.i))
     if (this.index == -1) {
       this.index = this.medications.length
       this.medications.push({ title: '', time: null, reminder: false })

@@ -4,13 +4,15 @@ import Page from '../components/page.js'
 import Modal from '../components/modal.js'
 
 import DayHelper from '../helpers/day.js'
+import MedicationsHelper from '../helpers/medications.js'
 import Identifiers from '../helpers/identifiers.js'
 
 export default {
   name: 'day',
   data() {
     return {
-      helper: {}
+      helper: {},
+      medications: []
     }
   },
   computed: {
@@ -61,15 +63,24 @@ export default {
       </ul>
     </div>
     <div class="card mb-16">
-      <h3 class="p-16 pb-0 m-0">Medications</h3>
+      <h3 class="p-16 pb-0 m-0">Taken Medication</h3>
       <ul class="link-list m-0">
-        <li v-for="(item, i) in helper.data.medications" :key="'m' + i"><span v-on:click="$router.push('/medications/details?date=' + helper.dateId + '&i=' + i)">
+        <li v-if="helper.data.medications.length == 0">
+          <span><span class="material-icons-round">info</span>No medication taken</span>
+        </li>
+        <li v-for="(item, i) in helper.data.medications" :key="'m' + i"><span v-on:click="$router.push('/medications/details?date=' + helper.dateId + '&i=' + encodeURIComponent(item.title))">
           <div class="flex between">
             <span><span class="material-icons-round">arrow_right</span>{{ item.title }}</span>
-            <span v-on:click.stop="removeMedication(i)" class="material-icons-round text">remove_circle_outline</span>
+            <span v-on:click.stop="helper.removeMedication(i)" class="material-icons-round text">remove_circle_outline</span>
           </div>
         </span></li>
-        <li><router-link :to="'/medications?date=' + helper.dateId"><span class="material-icons-round">add</span>Add Medication</router-link></li>
+      </ul>
+      <h3 class="p-16 pb-0 m-0 mb-8">Other Medication</h3>
+      <ul class="link-list m-0">
+        <li v-for="(item, i) of medications" :key="i" v-if="helper.data.medications.findIndex(x => x.title) == -1"><span v-on:click="helper.addMedication(item)">
+          <span><span class="material-icons-round">add</span>{{ item.title }}</span>
+        </span></li>
+        <li><router-link :to="'/medications?date=' + helper.dateId"><span class="material-icons-round">edit</span>Edit List</router-link></li>
       </ul>
     </div>
     <ul class="card link-list m-0">
@@ -126,21 +137,6 @@ export default {
       instance.$mount()
       this.$root.$el.appendChild(instance.$el)
     },
-    removeMedication(index) {
-      const ComponentClass = Vue.extend(Modal)
-      const instance = new ComponentClass({
-        propsData: {
-          title: 'Remove Medication',
-          message: 'Are you sure you want to remove this medication?',
-          positiveText: 'Remove',
-          positiveFunction: () => {
-            this.helper.removeMedication(index)
-          }
-        }
-      })
-      instance.$mount()
-      this.$root.$el.appendChild(instance.$el)
-    },
     boxState(value) {
       return this.helper.data[value] ? 'check_box' : 'check_box_outline_blank'
     },
@@ -151,5 +147,7 @@ export default {
   },
   created() {
     this.helper = new DayHelper(this.$route.query.date)
+    this.medications = MedicationsHelper.get()
+      .sort((a, b) => a.title.localeCompare(b.title))
   }
 }
