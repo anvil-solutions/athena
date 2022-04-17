@@ -77,7 +77,7 @@ export default class CycleHelper {
     this.periods.forEach((item, i) => {
       let periodLength = (this.periods.length > i + 1 ? item[1] - item[0] : 0)
       let cycleLength = (this.periods.length > i + 1 ? this.periods[i + 1][0] - item[0] : 0)
-      if (periodLength > 0 && cycleLength - periodLength > periodLength) {
+      if (periodLength > 0 && cycleLength - periodLength > periodLength && cycleLength < 3.888e+9 && cycleLength > 1.814e+9) {
         object.cycle += cycleLength
         object.period += periodLength
         counter++
