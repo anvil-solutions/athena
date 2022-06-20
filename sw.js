@@ -3,8 +3,8 @@ layout: null
 ---
 const CACHE_NAME = 'athena-{{ site.time | date: "%Y%m%d-%H%M" }}';
 const urlsToCache = [
-  {% for file in site.static_files %}{% unless file.path contains '/unsplash/' %}'{{ site.baseurl }}{{ file.path }}',{% endunless %}
-  {% endfor %}
+  {% for file in site.static_files %}{% assign temp = file.name | slice: 0 %}{% unless file.path contains '/unsplash/' or temp == '.'  %}'{{ site.baseurl }}{{ file.path }}',
+  {% endunless %}{% endfor %}
   '{{ site.baseurl }}/'
 ];
 
