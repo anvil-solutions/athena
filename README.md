@@ -1,4 +1,4 @@
-![Icon](https://raw.githubusercontent.com/Domi04151309/athena/main/pwa/mipmap-xxxhdpi/ic_launcher.png)
+![Icon](https://raw.githubusercontent.com/anvil-solutions/athena/main/pwa/mipmap-xxxhdpi/ic_launcher.png)
 
 # Athena
 Your personal period, cycle, and symptom tracker.
