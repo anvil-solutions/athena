@@ -548,11 +548,23 @@ svg {
   text-decoration: none;
   cursor: pointer;
 }
-.tab:hover, .link-list > *:hover {
+.nav-icon:hover, .tab:hover, .link-list > *:hover {
   background: var(--hover-color);
 }
-.tab:hover, .link-list > *:active {
+.nav-icon:active, .tab:active, .link-list > *:active {
   background: var(--pressed-color);
+}
+a.card:not(.image-card):hover {
+  background: linear-gradient(var(--hover-color), var(--hover-color)), linear-gradient(var(--elevation-overlay), var(--elevation-overlay));
+}
+a.card:not(.image-card):active {
+  background: linear-gradient(var(--pressed-color), var(--pressed-color)), linear-gradient(var(--elevation-overlay), var(--elevation-overlay));
+}
+.card:not(.modal-content) a.card:not(.image-card):hover {
+  background: linear-gradient(var(--hover-color), var(--hover-color)), linear-gradient(var(--elevation-overlay-2), var(--elevation-overlay-2));
+}
+.card:not(.modal-content) a.card:not(.image-card):active {
+  background: linear-gradient(var(--pressed-color), var(--pressed-color)), linear-gradient(var(--elevation-overlay-2), var(--elevation-overlay-2));
 }
 .tab > .material-icons-round, .nav-icon {
   display: block;
@@ -565,6 +577,7 @@ svg {
   float: left;
   margin: 4px;
   color: var(--text-color-secondary);
+  border-radius: var(--border-radius-1x);
 }
 .nav-icon.transparent {
   color: var(--text-color-dark)
