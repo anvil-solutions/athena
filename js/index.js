@@ -86,7 +86,7 @@ window.encrypt = async input => {
 window.checkHostname = async () => {
   const hostname = await window.encrypt(location.hostname)
   return hostname == '49960de5880e8c687434170f6476605b8fe4aeb9a28632c7995cf3ba831d9763'
-    || hostname == '61f46ecc76756e9e83de8c18b7ead29f2afdb64e512aacd5ad3a11daee79992a'
+    || hostname == '711fa4f04d918304fbf850be484fbe4ecef06d32883158638b568c75db5e0d24'
 }
 
 let modal
