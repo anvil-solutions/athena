@@ -1,0 +1,30 @@
+name: Build & Upload
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build & Upload
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+        bundler-cache: true
+
+    - name: Build with Jekyll
+      run: bundle exec jekyll build
+
+    - name: Upload to server
+      uses: anvil-solutions/Fast-FTP-Action@2.1.3
+      with:
+        server: ${{ secrets.FTP_URL }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        method: sftp
+        local_dir: ./_site
+        remote_dir: ${{ secrets.FTP_PATH }}
